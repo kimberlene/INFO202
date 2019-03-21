@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="ShoppingApp">
+    <head>
+        <title>Create Account</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/ngStorage.min.js"></script>
+        <script src="js/shopping.js"></script>
+    </head>
+    <body>
+        <div class="header">
+             <img class="logo" src="images/logo3.jpg" alt="Logo">
+            <div ng-include="'menu.html'" ></div>
+
+            <h1> Create An Account </h1>
+        </div>
+        <form ng-controller="CustomerController as custCtrl" ng-submit="custCtrl.registerCustomer(customer)">
+            <fieldset>
+                <legend>Account Details</legend>
+                User Name: <input type="text" ng-model="customer.username" required><br>
+                First Name: <input type="text" ng-model="customer.firstname" required><br>
+                Last Name: <input type="text" ng-model="customer.surname" required><br>
+                Email: <input type="email" ng-model="customer.emailAddress" required><br>
+                Address: <textarea ng-model="customer.address" required></textarea> <br>
+                Credit Card: <input type="number" maxlength="16" ng-model="customer.creditCardDetails" required><br>
+                Password: <input type="password" maxlength="8" ng-model="customer.password" required><br>               
+                <button type="submit">Create Account</button>
+
+            </fieldset>
+        </form>
+
+
+    </body>
+</html>

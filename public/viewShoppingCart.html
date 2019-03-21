@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="ShoppingApp">
+    <head>
+        <title>View Shopping Cart</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/ngStorage.min.js"></script>
+        <script src="js/shopping.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body ng-controller="ShoppingCartController as cartCtrl">
+        <div class="header">
+             <img class="logo" src="images/logo3.jpg" alt="Logo">
+            <div ng-include="'menu.html'" ></div>
+
+            <h1> Shopping Cart </h1>
+        </div>
+        <table align="center" >
+            <tr>
+                <th>Product</th>
+                <th>Price</th> 
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+
+            <tr ng-repeat="item in cartCtrl.items">
+                <td>{{item.product.name}}</td>
+                <td>{{item.salePrice| currency}}</td>
+                <td>{{item.quantityPurchased}}</td>
+                <td>{{item.getItemTotal().toFixed(2) | currency}}</td>
+            </tr>
+
+            <tr>
+                <th>Total Cost:</th>
+                <th></th> 
+                <th></th>
+                <th>{{cartCtrl.total.toFixed(2) | currency}}</th>
+            </tr>
+
+        </table>
+        <div class="center_2">
+            <button type="button" ng-click="cartCtrl.checkOut()">Check Out Cart</button>
+        </div>
+    </body>
+</html>

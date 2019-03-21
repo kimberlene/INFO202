@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="ShoppingApp">
+    <head>
+        <title>Quantity To Purchase</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/ngStorage.min.js"></script>
+        <script src="js/shopping.js"></script>
+    </head>
+    <body ng-controller="ShoppingCartController as cartCtrl">
+        <div class="header">
+             <img class="logo" src="images/logo3.jpg" alt="Logo">
+            <div ng-include="'menu.html'" ></div>
+
+            <h1> How many do you want? </h1>
+        </div>
+        <div id="para">
+            ID: {{cartCtrl.selectedProduct.productId}}<br>
+            Name: {{cartCtrl.selectedProduct.name}} <br>
+            Description: {{cartCtrl.selectedProduct.description}}<br>
+            Price: ${{cartCtrl.selectedProduct.listPrice}} <br>
+            Quantity Available: {{cartCtrl.selectedProduct.quantity}}<br>
+        </div>
+
+        <form>
+            <fieldset>
+                <legend>Quantity to buy</legend>
+                How many: <input type="number" ng-model="qty">
+                <button type="button" ng-click="cartCtrl.addToCart(qty)"> Add to Cart </button>
+            </fieldset>
+        </form>
+
+
+    </body>
+</html>
