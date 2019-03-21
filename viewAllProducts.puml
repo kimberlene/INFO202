@@ -1,0 +1,34 @@
+@startuml
+skinparam style strictuml
+
+actor "User" as user
+
+participant "Admistrator" as main <<main>>
+
+main++
+
+create "ProductAdmistration" as menu <<frame>>
+main -> menu : construct
+
+user -> menu++ : click "View Products"
+
+create "ProductReport" as report <<dialog>>
+menu -> report : construct
+
+' activate report constructor
+report++
+
+' create a DAO
+create "ProductEditorDAO" as dao <<DAO>>
+report -> dao : construct 
+
+
+report -> dao++ : displayProducts()
+dao -> report : product List
+
+report -> report : dispose()
+destroy report
+@enduml
+
+
+

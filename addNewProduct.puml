@@ -1,0 +1,57 @@
+@startuml
+skinparam style strictuml
+
+actor "User" as user
+
+participant "Admistrator" as main <<main>>
+
+main++
+
+create "ProductAdmistration" as menu <<frame>>
+main -> menu : construct
+
+user -> menu++ : click "Add new Product"
+
+create "ProductEditor" as editor <<dialog>>
+menu -> editor : construct
+
+' activate editor constructor
+editor++
+
+' create a DAO
+create "ProductEditorDAO" as dao <<DAO>>
+editor -> dao : construct 
+editor--
+
+' user enters product details and clicks the save button
+user -> editor++ : enters product details
+editor--
+
+user -> editor++ : clicks save button
+
+create "Product : product" as product <<domain>>
+editor -> product : construct
+
+' get the product details from the relevant text component
+editor -> editor : getText() : product details from GUI components
+
+' set the product details in the product
+editor -> product++ : set Product Details
+product--
+' save the new Product
+editor -> dao++ : saveProduct(product)
+
+dao -> product++ : product.getCategory()
+product -> dao : category
+dao -> editor : getCategories()
+dao--
+product--
+
+'dispose dialog
+editor -> editor : dispose()
+
+destroy editor
+
+@enduml
+
+
