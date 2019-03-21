@@ -1,0 +1,63 @@
+@startuml
+
+' style tweaks to make the diagram a little more readable
+skinparam {
+	Style strictuml
+	RoundCorner 8
+
+	Sequence {
+		' make activations yellow too
+		LifeLineBackgroundColor #FDFDCD
+
+		' make stereotypes less ugly
+		Stereotype {
+			Font {
+				Size 11
+				Style plain
+			}
+		}
+	}
+
+	DatabaseBorderColor #A80036
+
+}
+
+title View All Products in Online shopping system
+
+
+actor Customer as user
+participant "viewProducts.html" as website <<HTML file>>
+participant "Product Controller" as ctrl <<AngularJS>>
+participant "ProductModule" as module <<Jooby>>
+participant "DatabaseDao" as dao <<ProductDAO>>
+participant "Server" as server <<server extends Jooby>>
+database "Database" as db
+
+server++
+website ++
+
+create dao
+server -> dao : « construct »
+
+create module
+server -> module : « construct »
+
+user ->> website : clicks 'All' button in the View Products page
+create ctrl
+website -> ctrl : « construct »
+
+
+website -> ctrl++ : Request Products
+ctrl -> module++ : Request resources at /api/products
+module -> dao++ : getProductList()
+dao -> db++ : select * from Product
+db --> dao-- : return ResultSet --> Collection<Product>
+dao --> module-- : return products:Collection<Product>
+module --> ctrl-- : return products:Collection<Product>
+
+ctrl--
+ctrl --> website-- : return product
+note left : All products now visible to customer
+ 
+
+@enduml
